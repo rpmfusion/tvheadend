@@ -1,6 +1,6 @@
 diff -up ./configure.orig ./configure
 --- ./configure.orig	2016-03-14 10:10:57.000000000 +0100
-+++ ./configure	2016-07-05 00:18:31.023320750 +0200
++++ ./configure	2016-08-09 13:20:27.159342444 +0200
 @@ -395,7 +395,7 @@ else
          has_libav=false
        fi
@@ -21,7 +21,7 @@ diff -up ./configure.orig ./configure
  
 diff -up ./src/libav.c.orig ./src/libav.c
 --- ./src/libav.c.orig	2016-03-14 10:10:57.000000000 +0100
-+++ ./src/libav.c	2016-07-05 00:19:19.154076349 +0200
++++ ./src/libav.c	2016-08-09 13:20:27.159342444 +0200
 @@ -186,4 +186,5 @@ libav_init(void)
    av_log_set_callback(libav_log_callback);
    av_log_set_level(AV_LOG_VERBOSE);
@@ -30,7 +30,7 @@ diff -up ./src/libav.c.orig ./src/libav.c
  }
 diff -up ./src/libav.h.orig ./src/libav.h
 --- ./src/libav.h.orig	2016-03-14 10:10:57.000000000 +0100
-+++ ./src/libav.h	2016-07-05 00:21:52.805103748 +0200
++++ ./src/libav.h	2016-08-09 13:20:27.159342444 +0200
 @@ -21,6 +21,7 @@
  
  
@@ -40,8 +40,8 @@ diff -up ./src/libav.h.orig ./src/libav.h
  
  /*
 diff -up ./src/plumbing/transcoding.c.orig ./src/plumbing/transcoding.c
---- ./src/plumbing/transcoding.c.orig	2016-03-14 10:10:57.000000000 +0100
-+++ ./src/plumbing/transcoding.c	2016-07-05 00:33:28.319065719 +0200
+--- ./src/plumbing/transcoding.c.orig	2016-08-09 13:20:21.782349916 +0200
++++ ./src/plumbing/transcoding.c	2016-08-09 13:20:28.686340322 +0200
 @@ -19,12 +19,14 @@
  #include <unistd.h>
  #include <libavformat/avformat.h>
@@ -199,19 +199,23 @@ diff -up ./src/plumbing/transcoding.c.orig ./src/plumbing/transcoding.c
  /**
   *
   */
-@@ -592,10 +716,10 @@ transcoder_stream_audio(transcoder_t *t,
+@@ -592,12 +716,12 @@ transcoder_stream_audio(transcoder_t *t,
        // Convert audio
        tvhtrace("transcode", "%04X: converting audio", shortid(t));
  
 -      tvhtrace("transcode", "%04X: IN : channels=%d, layout=%" PRIi64 ", rate=%d, fmt=%d, bitrate=%d",
-+      tvhtrace("transcode", "%04X: IN : channels=%d, layout=%" PRIi64 ", rate=%d, fmt=%d, bitrate=%ld",
++      tvhtrace("transcode", "%04X: IN : channels=%d, layout=%" PRIi64 ", rate=%d, fmt=%d, bitrate=%"PRId64,
                 shortid(t), ictx->channels, ictx->channel_layout, ictx->sample_rate,
-                ictx->sample_fmt, ictx->bit_rate);
+-               ictx->sample_fmt, ictx->bit_rate);
 -      tvhtrace("transcode", "%04X: OUT: channels=%d, layout=%" PRIi64 ", rate=%d, fmt=%d, bitrate=%d",
-+      tvhtrace("transcode", "%04X: OUT: channels=%d, layout=%" PRIi64 ", rate=%d, fmt=%d, bitrate=%ld",
++               ictx->sample_fmt, (int64_t)ictx->bit_rate);
++      tvhtrace("transcode", "%04X: OUT: channels=%d, layout=%" PRIi64 ", rate=%d, fmt=%d, bitrate=%"PRId64,
                 shortid(t), octx->channels, octx->channel_layout, octx->sample_rate,
-                octx->sample_fmt, octx->bit_rate);
+-               octx->sample_fmt, octx->bit_rate);
++               octx->sample_fmt, (int64_t)octx->bit_rate);
  
+       if (transcode_opt_set_int(t, ts, as->resample_context,
+                                 "in_channel_layout", ictx->channel_layout, 1))
 @@ -962,9 +1086,7 @@ transcoder_stream_video(transcoder_t *t,
    AVCodecContext *ictx, *octx;
    AVDictionary *opts;
