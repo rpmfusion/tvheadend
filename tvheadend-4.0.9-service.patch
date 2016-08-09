@@ -1,0 +1,8 @@
+diff -up ./rpm/tvheadend.sysconfig.orig ./rpm/tvheadend.sysconfig
+--- ./rpm/tvheadend.sysconfig.orig	2016-03-14 10:10:57.000000000 +0100
++++ ./rpm/tvheadend.sysconfig	2016-07-05 01:56:33.730282240 +0200
+@@ -1,3 +1,3 @@
+ # Configuration file for the tvheadend service.
+ 
+-OPTIONS="-c /home/tvheadend/config -u tvheadend -g tvheadend -6 --http_port 9981 --htsp_port 9982"
++OPTIONS="-c /var/lib/tvheadend/config -u tvheadend -g video -6 -C --http_port 9981 --htsp_port 9982"

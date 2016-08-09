@@ -1,0 +1,12 @@
+diff -up ./src/input/mpegts/scanfile.c.orig ./src/input/mpegts/scanfile.c
+--- ./src/input/mpegts/scanfile.c.orig	2016-03-14 10:10:57.000000000 +0100
++++ ./src/input/mpegts/scanfile.c	2016-07-05 01:51:10.519638550 +0200
+@@ -718,7 +718,7 @@ scanfile_init ( void )
+ #elif defined(PLATFORM_FREEBSD)
+     path = "/usr/local/share/dtv-scan-tables";
+ #else
+-    path = "/usr/share/dvb";
++    path = "/usr/share/dvbv5";
+ #endif
+   scanfile_load_dir(path, NULL, 0);
+ 

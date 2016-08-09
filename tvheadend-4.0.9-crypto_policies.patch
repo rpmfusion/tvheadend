@@ -1,0 +1,12 @@
+diff -up ./src/httpc.c.orig ./src/httpc.c
+--- ./src/httpc.c.orig	2016-03-14 10:10:57.000000000 +0100
++++ ./src/httpc.c	2016-07-05 01:59:47.616987692 +0200
+@@ -1294,7 +1294,7 @@ http_client_reconnect
+     /* do not use SSLv2 */
+     SSL_CTX_set_options(ssl->ctx, SSL_OP_NO_SSLv2 | SSL_OP_NO_COMPRESSION);
+     /* adjust cipher list */
+-    if (SSL_CTX_set_cipher_list(ssl->ctx, "HIGH:MEDIUM") != 1) {
++    if (SSL_CTX_set_cipher_list(ssl->ctx, "PROFILE=SYSTEM") != 1) {
+       tvhlog(LOG_ERR, "httpc", "%04X: Unable to adjust SSL cipher list", shortid(hc));
+       goto err2;
+     }
