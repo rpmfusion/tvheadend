@@ -3,7 +3,7 @@
 
 Name:           tvheadend
 Version:        4.0.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 Group:          Applications/Multimedia
@@ -143,6 +143,9 @@ exit 0
 
 
 %changelog
+* Sat Mar 25 2017 Martin Gansser <martinkg@fedoraproject.org> - 4.0.9-4
+- Update to 4.0.9-4
+
 * Tue Aug 09 2016 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.0.9-3
 - Merge all FFmpeg patches into a single one
 
