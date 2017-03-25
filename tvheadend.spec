@@ -145,6 +145,7 @@ exit 0
 %changelog
 * Sat Mar 25 2017 Martin Gansser <martinkg@fedoraproject.org> - 4.0.9-4
 - Update to 4.0.9-4
+- Add tvheadend-4.0.9-gcc7.patch
 
 * Tue Aug 09 2016 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.0.9-3
 - Merge all FFmpeg patches into a single one
