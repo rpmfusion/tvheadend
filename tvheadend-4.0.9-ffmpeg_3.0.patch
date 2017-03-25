@@ -395,29 +395,27 @@ diff -up ./src/plumbing/transcoding.c.orig ./src/plumbing/transcoding.c
    if(opts)
      av_dict_free(&opts);
  
-@@ -1614,16 +1614,19 @@ transcoder_destroy_video(transcoder_t *t
-     av_free(vs->vid_octx);
-   }
-
-+  if (vs->flt_graph) {
-+    avfilter_graph_free(&vs->flt_graph);
-+    vs->flt_graph = NULL;
-+  }
-+
+@@ -1548,15 +1637,17 @@ transcoder_destroy_video(transcoder_t *t
    if(vs->vid_dec_frame)
      av_free(vs->vid_dec_frame);
-
+ 
 -  if(vs->vid_scaler)
 -    sws_freeContext(vs->vid_scaler);
 -
    if(vs->vid_enc_frame)
      av_free(vs->vid_enc_frame);
-
-   free(ts);
+ 
+   if (vs->vid_first_pkt)
+     pkt_ref_dec(vs->vid_first_pkt);
+ 
++  if (vs->flt_graph) {
++    avfilter_graph_free(&vs->flt_graph);
++    vs->flt_graph = NULL;
++  }
 +
+   free(ts);
  }
-
-
+ 
 @@ -1603,11 +1694,13 @@ transcoder_init_video(transcoder_t *t, s
    vs->vid_ictx->thread_count =
      vs->vid_octx->thread_count = transcoder_thread_count(t, sct);
