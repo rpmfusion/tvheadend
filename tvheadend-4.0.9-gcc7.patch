@@ -1,11 +1,89 @@
---- src/lock.c.orig	2017-03-25 11:24:16.713127102 +0100
-+++ src/lock.c	2017-03-25 11:25:07.499462345 +0100
-@@ -36,7 +36,7 @@
+diff -up ./src/dvr/dvr_rec.c.orig ./src/dvr/dvr_rec.c
+--- ./src/dvr/dvr_rec.c.orig	2016-03-14 10:10:57.000000000 +0100
++++ ./src/dvr/dvr_rec.c	2017-03-25 17:35:36.936023377 +0100
+@@ -206,7 +206,7 @@ pvr_generate_filename(dvr_entry_t *de, c
+     return -1;
+ 
+   cfg = de->de_config;
+-  if (cfg->dvr_storage == NULL || cfg->dvr_storage == '\0')
++  if (cfg->dvr_storage == NULL || *(cfg->dvr_storage) == '\0')
+     return -1;
+   strncpy(path, cfg->dvr_storage, sizeof(path));
+   path[sizeof(path)-1] = '\0';
+@@ -431,8 +431,8 @@ dvr_rec_start(dvr_entry_t *de, const str
+   for(i = 0; i < ss->ss_num_components; i++) {
+     ssc = &ss->ss_components[i];
+ 
+-    char res[11];
+-    char asp[6];
++    char res[14];
++    char asp[14];
+     char sr[6];
+     char ch[7];
+ 
+diff -up ./src/epggrab/module/xmltv.c.orig ./src/epggrab/module/xmltv.c
+--- ./src/epggrab/module/xmltv.c.orig	2016-03-14 10:10:57.000000000 +0100
++++ ./src/epggrab/module/xmltv.c	2017-03-25 17:35:36.936023377 +0100
+@@ -716,7 +716,7 @@ static void _xmltv_load_grabbers ( void
+   /* Internal search */
+   } else if ((tmp = getenv("PATH"))) {
+     tvhdebug("epggrab", "using internal grab search");
+-    char bin[256];
++    char bin[257];
+     char *argv[] = {
+       NULL,
+       (char *)"--description",
+diff -up ./src/input/mpegts/scanfile.c.orig ./src/input/mpegts/scanfile.c
+--- ./src/input/mpegts/scanfile.c.orig	2016-03-14 10:10:57.000000000 +0100
++++ ./src/input/mpegts/scanfile.c	2017-03-25 17:41:50.562372539 +0100
+@@ -374,7 +374,7 @@ scanfile_load_dvbv5 ( scanfile_network_t
+ 
+   /* validity check for [text] */
+   s = str_trim(line);
+-  if (s == '\0' || s[strlen(s) - 1] != ']')
++  if (*s == '\0' || s[strlen(s) - 1] != ']')
+     return 1;
+ 
+   l = htsmsg_create_map();
+@@ -660,7 +660,7 @@ static void
+ scanfile_load_dir
+   ( const char *path, const char *type, int lvl )
+ {
+-  char p[256];
++  char p[257];
+   fb_dir *dir;
+   fb_dirent *de;
+   tvhtrace("scanfile", "load dir %s", path);
+diff -up ./src/lock.c.orig ./src/lock.c
+--- ./src/lock.c.orig	2016-03-14 10:10:57.000000000 +0100
++++ ./src/lock.c	2017-03-25 17:35:36.936023377 +0100
+@@ -31,7 +31,7 @@ int state_lock_(const char *lfile, int l
+     int fd = -1, err = 0;
+     struct flock lck;
+     struct stat st;
+-    char lcktxt[12];
++    char lcktxt[13];
+ 
      lck.l_type = lock ? F_WRLCK : F_UNLCK;
      lck.l_whence = SEEK_SET;
-     lck.l_start = 0;
--    lck.l_len = 11;
-+    lck.l_len = 12;
-     lck.l_pid = 0;
-     if (lock) {
-         snprintf(lcktxt, sizeof(lcktxt), "%10li\n", (long)getpid());
+diff -up ./src/webui/webui.c.orig ./src/webui/webui.c
+--- ./src/webui/webui.c.orig	2016-03-14 10:10:57.000000000 +0100
++++ ./src/webui/webui.c	2017-03-25 17:36:11.578127693 +0100
+@@ -112,7 +112,7 @@ page_login(http_connection_t *hc, const
+ {
+   if (hc->hc_access != NULL &&
+       hc->hc_access->aa_username != NULL &&
+-      hc->hc_access->aa_username != '\0') {
++      *(hc->hc_access->aa_username) != '\0') {
+     http_redirect(hc, "/", &hc->hc_req_args, 0);
+     return 0;
+   } else {
+@@ -125,7 +125,7 @@ page_logout(http_connection_t *hc, const
+ {
+   if (hc->hc_access == NULL ||
+       hc->hc_access->aa_username == NULL ||
+-      hc->hc_access->aa_username == '\0') {
++      *(hc->hc_access->aa_username) == '\0') {
+ redirect:
+     http_redirect(hc, "/", &hc->hc_req_args, 0);
+     return 0;

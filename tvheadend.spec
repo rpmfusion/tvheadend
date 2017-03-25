@@ -3,7 +3,7 @@
 
 Name:           tvheadend
 Version:        4.0.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 Group:          Applications/Multimedia
@@ -32,12 +32,14 @@ Patch5:         %{name}-4.0.9-service.patch
 # Enforcing system crypto policies, see
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
 Patch6:         %{name}-4.0.9-crypto_policies.patch
+# Fix build with GCC 7
 Patch7:         %{name}-4.0.9-gcc7.patch
 
 BuildRequires:  bzip2
 BuildRequires:  gcc
 BuildRequires:  gzip
 BuildRequires:  hdhomerun-devel
+BuildRequires:  libdvbcsa-devel
 BuildRequires:  pkgconfig(avahi-client)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(libavcodec)
@@ -95,6 +97,7 @@ touch -r Makefile configure
     --disable-dvbscan \
     --disable-hdhomerun_static \
     --disable-libffmpeg_static_x264 \
+    --enable-dvbcsa \
     --enable-hdhomerun_client
 %make_build V=1
 
@@ -145,9 +148,12 @@ exit 0
 
 
 %changelog
-* Sat Mar 25 2017 Martin Gansser <martinkg@fedoraproject.org> - 4.0.9-4
-- Update to 4.0.9-4
-- Add tvheadend-4.0.9-gcc7.patch
+* Sat Mar 25 2017 Mohamed El Morabity <melmorabity@fedorapeople.org> - 4.0.9-5
+- Fix build with GCC 7
+- Enable DVBCSA support
+
+* Mon Mar 20 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 4.0.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
 * Tue Aug 09 2016 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.0.9-3
 - Merge all FFmpeg patches into a single one
