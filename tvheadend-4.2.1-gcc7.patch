@@ -1,6 +1,6 @@
 diff -up ./src/dvr/dvr_rec.c.orig ./src/dvr/dvr_rec.c
 --- ./src/dvr/dvr_rec.c.orig	2017-04-21 10:32:22.000000000 +0200
-+++ ./src/dvr/dvr_rec.c	2017-04-23 14:05:36.028066833 +0200
++++ ./src/dvr/dvr_rec.c	2017-04-23 16:56:04.018841196 +0200
 @@ -613,7 +613,7 @@ dvr_sub_basic_info(const char *id, const
    HTSMSG_FOREACH(f, info) {
      if (!(e = htsmsg_field_get_map(f))) continue;
@@ -21,7 +21,7 @@ diff -up ./src/dvr/dvr_rec.c.orig ./src/dvr/dvr_rec.c
    htsmsg_t *info, *e;
 diff -up ./src/epggrab/module/xmltv.c.orig ./src/epggrab/module/xmltv.c
 --- ./src/epggrab/module/xmltv.c.orig	2017-04-21 10:32:22.000000000 +0200
-+++ ./src/epggrab/module/xmltv.c	2017-04-23 13:43:54.253923983 +0200
++++ ./src/epggrab/module/xmltv.c	2017-04-23 16:56:04.019841193 +0200
 @@ -843,7 +843,7 @@ static void _xmltv_load_grabbers ( void
    /* Internal search */
    } else if ((tmp = getenv("PATH"))) {
@@ -31,9 +31,21 @@ diff -up ./src/epggrab/module/xmltv.c.orig ./src/epggrab/module/xmltv.c
      char *argv[] = {
        NULL,
        (char *)"--description",
+diff -up ./src/idnode.c.orig ./src/idnode.c
+--- ./src/idnode.c.orig	2017-04-23 17:05:22.439195449 +0200
++++ ./src/idnode.c	2017-04-23 17:05:36.478154486 +0200
+@@ -1548,7 +1548,7 @@ idnode_slist_set ( idnode_t *in, idnode_
+       HTSMSG_FOREACH(f, vals) {
+         if ((s = htsmsg_field_get_str(f)) != NULL)
+           continue;
+-        if (strcmp(s, o->id))
++        if (strcmp(s == NULL ? "" : s, o->id))
+           continue;
+         if (*ip == 0) changed = 1;
+         break;
 diff -up ./src/lock.c.orig ./src/lock.c
 --- ./src/lock.c.orig	2017-04-21 10:32:22.000000000 +0200
-+++ ./src/lock.c	2017-04-23 13:42:15.592554853 +0200
++++ ./src/lock.c	2017-04-23 16:56:04.019841193 +0200
 @@ -31,7 +31,7 @@ int state_lock_(const char *lfile, int l
      int fd = -1, err = 0;
      struct flock lck;
@@ -43,9 +55,21 @@ diff -up ./src/lock.c.orig ./src/lock.c
  
      lck.l_type = lock ? F_WRLCK : F_UNLCK;
      lck.l_whence = SEEK_SET;
+diff -up ./src/rtsp.c.orig ./src/rtsp.c
+--- ./src/rtsp.c.orig	2017-04-21 10:32:22.000000000 +0200
++++ ./src/rtsp.c	2017-04-23 17:03:07.148586930 +0200
+@@ -38,7 +38,7 @@ rtsp_send_ext( http_client_t *hc, http_c
+                 (hc->hc_port != 554 ? 7 : 0) +
+                 (path ? strlen(path) : 1) + 1;
+   char *buf = alloca(blen);
+-  char buf2[7];
++  char buf2[11];
+   char buf_body[size + 3];
+ 
+   if (hc->hc_rtsp_session) {
 diff -up ./src/subscriptions.c.orig ./src/subscriptions.c
 --- ./src/subscriptions.c.orig	2017-04-21 10:32:22.000000000 +0200
-+++ ./src/subscriptions.c	2017-04-23 13:41:50.709217734 +0200
++++ ./src/subscriptions.c	2017-04-23 16:56:04.020841190 +0200
 @@ -976,7 +976,7 @@ subscription_create_msg(th_subscription_
    descramble_info_t *di;
    service_t *t;
@@ -57,7 +81,7 @@ diff -up ./src/subscriptions.c.orig ./src/subscriptions.c
    htsmsg_add_u32(m, "id", s->ths_id);
 diff -up ./src/webui/webui.c.orig ./src/webui/webui.c
 --- ./src/webui/webui.c.orig	2017-04-21 10:32:22.000000000 +0200
-+++ ./src/webui/webui.c	2017-04-23 14:07:05.205688547 +0200
++++ ./src/webui/webui.c	2017-04-23 16:56:04.020841190 +0200
 @@ -174,7 +174,7 @@ page_login(http_connection_t *hc, const
  {
    if (hc->hc_access != NULL &&
