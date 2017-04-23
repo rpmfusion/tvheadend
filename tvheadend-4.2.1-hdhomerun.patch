@@ -1,7 +1,7 @@
 diff -up ./configure.orig ./configure
---- ./configure.orig	2016-07-05 01:42:43.615016618 +0200
-+++ ./configure	2016-07-05 01:44:12.239677665 +0200
-@@ -290,7 +290,7 @@ if enabled hdhomerun_static; then
+--- ./configure.orig	2017-04-21 10:32:22.000000000 +0200
++++ ./configure	2017-04-23 13:31:08.717237211 +0200
+@@ -357,7 +357,7 @@ if enabled hdhomerun_static; then
  else
  
    if enabled_or_auto hdhomerun_client; then
@@ -11,13 +11,13 @@ diff -up ./configure.orig ./configure
        LDFLAGS="$LDFLAGS -lhdhomerun"
      fi
 diff -up ./src/input/mpegts/tvhdhomerun/tvhdhomerun_private.h.orig ./src/input/mpegts/tvhdhomerun/tvhdhomerun_private.h
---- ./src/input/mpegts/tvhdhomerun/tvhdhomerun_private.h.orig	2016-03-14 10:10:57.000000000 +0100
-+++ ./src/input/mpegts/tvhdhomerun/tvhdhomerun_private.h	2016-07-05 01:44:32.826134351 +0200
+--- ./src/input/mpegts/tvhdhomerun/tvhdhomerun_private.h.orig	2017-04-21 10:32:22.000000000 +0200
++++ ./src/input/mpegts/tvhdhomerun/tvhdhomerun_private.h	2017-04-23 13:31:08.717237211 +0200
 @@ -24,7 +24,7 @@
  #include "htsbuf.h"
  #include "tvhdhomerun.h"
  
--#include <libhdhomerun/hdhomerun.h>
+-#include "libhdhomerun/hdhomerun.h"
 +#include <hdhomerun/hdhomerun.h>
  
  typedef struct tvhdhomerun_device_info tvhdhomerun_device_info_t;
