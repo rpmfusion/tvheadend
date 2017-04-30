@@ -3,7 +3,7 @@
 
 Name:           tvheadend
 Version:        4.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 Group:          Applications/Multimedia
@@ -139,6 +139,9 @@ exit 0
 
 
 %changelog
+* Sun Apr 30 2017 Leigh Scott <leigh123linux@googlemail.com> - 4.2.1-2
+- Rebuild for ffmpeg update
+
 * Sun Apr 23 2017 Mohamed El Morabity <melmorabity@fedorapeople.org> - 4.2.1-1
 - Update to 4.2.1
 
