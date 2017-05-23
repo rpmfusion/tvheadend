@@ -2,8 +2,8 @@
 %global tvheadend_group video
 
 Name:           tvheadend
-Version:        4.2.1
-Release:        2%{?dist}
+Version:        4.2.2
+Release:        1%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 Group:          Applications/Multimedia
@@ -24,10 +24,8 @@ Patch3:         %{name}-4.2.1-dtv_scan_tables.patch
 # Enforcing system crypto policies, see
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
 Patch4:         %{name}-4.2.1-crypto_policies.patch
-# Fix build with GCC 7
-Patch5:         %{name}-4.2.1-gcc7.patch
 # Fix systemd detection
-Patch6:         %{name}-4.2.1-systemd.patch
+Patch5:         %{name}-4.2.1-systemd.patch
 
 BuildRequires:  bzip2
 BuildRequires:  gcc
@@ -139,6 +137,10 @@ exit 0
 
 
 %changelog
+* Tue May 23 2017 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.2-1
+- Update to 4.2.2
+- Drop patch for GCC7 (merged upstream)
+
 * Sun Apr 30 2017 Leigh Scott <leigh123linux@googlemail.com> - 4.2.1-2
 - Rebuild for ffmpeg update
 
