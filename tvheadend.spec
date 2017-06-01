@@ -3,7 +3,7 @@
 
 Name:           tvheadend
 Version:        4.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 Group:          Applications/Multimedia
@@ -20,7 +20,7 @@ Patch1:         %{name}-4.2.1-service.patch
 # Use system queue.h header
 Patch2:         %{name}-4.0.9-use_system_queue.patch
 # Fix system DTV scan tables path
-Patch3:         %{name}-4.2.1-dtv_scan_tables.patch
+Patch3:         %{name}-4.2.2-dtv_scan_tables.patch
 # Enforcing system crypto policies, see
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
 Patch4:         %{name}-4.2.1-crypto_policies.patch
@@ -137,6 +137,9 @@ exit 0
 
 
 %changelog
+* Thu Jun 01 2017 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.2-2
+- Fix system DTV scan tables path
+
 * Tue May 23 2017 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.2-1
 - Update to 4.2.2
 - Drop patch for GCC7 (merged upstream)
