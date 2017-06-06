@@ -3,7 +3,7 @@
 
 Name:           tvheadend
 Version:        4.2.2
-Release:        2%{?dist}
+Release:        2%{?dist}.1
 Summary:        TV streaming server and digital video recorder
 
 Group:          Applications/Multimedia
@@ -137,6 +137,9 @@ exit 0
 
 
 %changelog
+* Tue Jun 06 2017 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.2-2.1
+- Rebuild for hdhomerun update
+
 * Thu Jun 01 2017 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.2-2
 - Fix system DTV scan tables path
 
