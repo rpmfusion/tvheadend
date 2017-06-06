@@ -3,7 +3,7 @@
 
 Name:           tvheadend
 Version:        4.0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 Group:          Applications/Multimedia
@@ -142,6 +142,9 @@ exit 0
 
 
 %changelog
+* Tue Jun 06 2017 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.0.10-2
+- Rebuild for hdhomerun update
+
 * Wed Apr 12 2017 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.0.10-1
 - Update to 4.0.10
 - Enable DVBCSA support
