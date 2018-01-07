@@ -2,7 +2,7 @@
 %global tvheadend_group video
 
 Name:           tvheadend
-Version:        4.2.4
+Version:        4.2.5
 Release:        1%{?dist}
 Summary:        TV streaming server and digital video recorder
 
@@ -24,8 +24,6 @@ Patch3:         %{name}-4.2.2-dtv_scan_tables.patch
 # Enforcing system crypto policies, see
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
 Patch4:         %{name}-4.2.1-crypto_policies.patch
-# Fix systemd detection
-Patch5:         %{name}-4.2.1-systemd.patch
 
 BuildRequires:  bzip2
 BuildRequires:  gcc
@@ -42,9 +40,9 @@ BuildRequires:  pkgconfig(libavresample)
 BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libswresample)
 BuildRequires:  pkgconfig(libswscale)
+BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(liburiparser)
 BuildRequires:  pkgconfig(openssl)
-BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  python2
 BuildRequires:  systemd
@@ -78,13 +76,26 @@ rm -r vendor/{dvb-api,include}/
 # Use touch to be sure that configure, after being patched, is still older than
 # generated .config.mk file (otherwise the build fails)
 # touch -r Makefile configure
+# Note: --disable-lib* correspond to options to build bundled FFmpeg
 %configure \
     --disable-dvbscan \
     --disable-ffmpeg_static \
     --disable-hdhomerun_static \
+    --disable-libfdkaac \
+    --disable-libfdkaac_static \
+    --disable-libtheora \
+    --disable-libtheora_static \
+    --disable-libvorbis \
+    --disable-libvorbis_static \
+    --disable-libvpx \
+    --disable-libvpx_static \
+    --disable-libx264 \
+    --disable-libx264_static \
+    --disable-libx265 \
+    --disable-libx265_static \
     --enable-dvbcsa \
     --enable-hdhomerun_client \
-    --enable-libsystemd_daemon
+    --enable-libsystemd_daemon \
 %make_build V=1
 
 
@@ -137,6 +148,9 @@ exit 0
 
 
 %changelog
+* Sun Jan 07 2018 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.5-1
+- Update to 4.2.5
+
 * Thu Oct 19 2017 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.4-1
 - Update to 4.2.4
 
