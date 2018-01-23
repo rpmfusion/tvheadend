@@ -3,7 +3,7 @@
 
 Name:           tvheadend
 Version:        4.2.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 Group:          Applications/Multimedia
@@ -24,6 +24,8 @@ Patch3:         %{name}-4.2.2-dtv_scan_tables.patch
 # Enforcing system crypto policies, see
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
 Patch4:         %{name}-4.2.1-crypto_policies.patch
+# Fix build with FFmpeg 3.5
+Patch5:         %{name}-4.2.5-ffmpeg_3.5.patch
 
 BuildRequires:  bzip2
 BuildRequires:  gcc
@@ -148,6 +150,9 @@ exit 0
 
 
 %changelog
+* Tue Jan 23 2018 root - 4.2.5-3
+- Fix build with FFmpeg 3.5
+
 * Thu Jan 18 2018 Leigh Scott <leigh123linux@googlemail.com> - 4.2.5-2
 - Rebuilt for ffmpeg-3.5 git
 
