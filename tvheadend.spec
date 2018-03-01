@@ -150,7 +150,7 @@ exit 0
 
 
 %changelog
-* Tue Jan 23 2018 root - 4.2.5-3
+* Tue Jan 23 2018 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.5-3
 - Fix build with FFmpeg 3.5
 
 * Thu Jan 18 2018 Leigh Scott <leigh123linux@googlemail.com> - 4.2.5-2
