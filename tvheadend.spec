@@ -3,7 +3,7 @@
 
 Name:           tvheadend
 Version:        4.2.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 Group:          Applications/Multimedia
@@ -26,6 +26,8 @@ Patch3:         %{name}-4.2.2-dtv_scan_tables.patch
 Patch4:         %{name}-4.2.1-crypto_policies.patch
 # Fix build with FFmpeg 3.5
 Patch5:         %{name}-4.2.5-ffmpeg_3.5.patch
+# Fix build with GCC >= 8
+Patch6:         %{name}-4.2.5-gcc8.patch
 
 BuildRequires:  bzip2
 BuildRequires:  gcc
@@ -97,8 +99,8 @@ rm -r vendor/{dvb-api,include}/
     --disable-libx265_static \
     --enable-dvbcsa \
     --enable-hdhomerun_client \
-    --enable-libsystemd_daemon \
-%make_build V=1
+    --enable-libsystemd_daemon
+%make_build V=1 PYTHON=python2
 
 
 %install
@@ -150,6 +152,10 @@ exit 0
 
 
 %changelog
+* Thu Mar 08 2018 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.5-5
+- Fix build with GCC >= 8
+- Call python2 instead of python during build
+
 * Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 4.2.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
