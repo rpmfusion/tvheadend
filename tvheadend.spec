@@ -3,7 +3,7 @@
 
 Name:           tvheadend
 Version:        4.2.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 Group:          Applications/Multimedia
@@ -152,6 +152,9 @@ exit 0
 
 
 %changelog
+* Thu Mar 08 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 4.2.5-6
+- Rebuilt for new ffmpeg snapshot
+
 * Thu Mar 08 2018 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.5-5
 - Fix build with GCC >= 8
 - Call python2 instead of python during build
