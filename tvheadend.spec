@@ -3,7 +3,7 @@
 
 Name:           tvheadend
 Version:        4.2.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 Group:          Applications/Multimedia
@@ -46,7 +46,9 @@ BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  python2
 BuildRequires:  systemd
+Requires:       bzip2
 Requires:       dtv-scan-tables
+Requires:       tar
 %{?systemd_requires}
 Provides:       bundled(extjs) = 3.4.1.1
 
@@ -95,7 +97,7 @@ rm -r vendor/{dvb-api,include}/
     --disable-libx265_static \
     --enable-dvbcsa \
     --enable-hdhomerun_client \
-    --enable-libsystemd_daemon \
+    --enable-libsystemd_daemon
 %make_build V=1
 
 
@@ -138,7 +140,7 @@ exit 0
 
 %files
 %doc CONTRIBUTING.md README.md
-%license LICENSE.md licenses/gpl-3.0.txt 
+%license LICENSE.md licenses/gpl-3.0.txt
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_unitdir}/%{name}.service
@@ -148,6 +150,10 @@ exit 0
 
 
 %changelog
+* Sat Mar 17 2018 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.5-2
+- Add explicite Requires on tar and bzip2 (required by Tvheadend for
+  configuration backups)
+
 * Sun Jan 07 2018 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.5-1
 - Update to 4.2.5
 
@@ -170,13 +176,13 @@ exit 0
 * Sun Apr 30 2017 Leigh Scott <leigh123linux@googlemail.com> - 4.2.1-2
 - Rebuild for ffmpeg update
 
-* Sun Apr 23 2017 Mohamed El Morabity <melmorabity@fedorapeople.org> - 4.2.1-1
+* Sun Apr 23 2017 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.1-1
 - Update to 4.2.1
 
 * Wed Apr 12 2017 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.0.10-1
 - Update to 4.0.10
 
-* Sat Mar 25 2017 Mohamed El Morabity <melmorabity@fedorapeople.org> - 4.0.9-5
+* Sat Mar 25 2017 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.0.9-5
 - Fix build with GCC 7
 - Enable DVBCSA support
 
