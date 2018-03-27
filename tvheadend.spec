@@ -2,8 +2,8 @@
 %global tvheadend_group video
 
 Name:           tvheadend
-Version:        4.2.5
-Release:        7%{?dist}
+Version:        4.2.6
+Release:        1%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 Group:          Applications/Multimedia
@@ -154,6 +154,9 @@ exit 0
 
 
 %changelog
+* Tue Mar 27 2018 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.6-1
+- Update to 4.2.6
+
 * Sat Mar 17 2018 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.5-7
 - Add explicite Requires on tar and bzip2 (required by Tvheadend for
   configuration backups)
