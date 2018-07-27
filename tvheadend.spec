@@ -3,7 +3,7 @@
 
 Name:           tvheadend
 Version:        4.2.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 Group:          Applications/Multimedia
@@ -154,6 +154,9 @@ exit 0
 
 
 %changelog
+* Fri Jul 27 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 4.2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Tue Mar 27 2018 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.6-1
 - Update to 4.2.6
 
