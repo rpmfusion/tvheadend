@@ -2,21 +2,19 @@
 %global tvheadend_group video
 
 Name:           tvheadend
-Version:        4.2.6
-Release:        3%{?dist}
+Version:        4.2.7
+Release:        1%{?dist}
 Summary:        TV streaming server and digital video recorder
 
-Group:          Applications/Multimedia
 License:        GPLv3+
 URL:            https://tvheadend.org/
 Source0:        https://github.com/tvheadend/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Fix build with hdhomerun
 Patch0:         %{name}-4.2.1-hdhomerun.patch
 # Fix systemd service and configuration:
-# - Fix daemon user path
 # - Fix daemon group (use video to access DVB devices)
 # - Add -C option to allow UI access without login at first run
-Patch1:         %{name}-4.2.1-service.patch
+Patch1:         %{name}-4.2.7-service.patch
 # Use system queue.h header
 Patch2:         %{name}-4.0.9-use_system_queue.patch
 # Fix system DTV scan tables path
@@ -24,10 +22,6 @@ Patch3:         %{name}-4.2.2-dtv_scan_tables.patch
 # Enforcing system crypto policies, see
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
 Patch4:         %{name}-4.2.1-crypto_policies.patch
-# Fix build with FFmpeg 3.5
-Patch5:         %{name}-4.2.5-ffmpeg_3.5.patch
-# Fix build with GCC >= 8
-Patch6:         %{name}-4.2.5-gcc8.patch
 
 BuildRequires:  bzip2
 BuildRequires:  gcc
@@ -48,7 +42,7 @@ BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(liburiparser)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(zlib)
-BuildRequires:  python2
+BuildRequires:  python3-devel
 BuildRequires:  systemd
 Requires:       bzip2
 Requires:       dtv-scan-tables
@@ -102,7 +96,7 @@ rm -r vendor/{dvb-api,include}/
     --enable-dvbcsa \
     --enable-hdhomerun_client \
     --enable-libsystemd_daemon
-%make_build V=1 PYTHON=python2
+%make_build V=1 PYTHON=%{__python3}
 
 
 %install
@@ -154,6 +148,11 @@ exit 0
 
 
 %changelog
+* Tue Oct 09 2018 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.7-1
+- Update to 4.2.7
+- Remove patches merges upstream
+- Use Python 3 for build
+
 * Sun Aug 19 2018 Leigh Scott <leigh123linux@googlemail.com> - 4.2.6-3
 - Rebuilt for Fedora 29 Mass Rebuild binutils issue
 
