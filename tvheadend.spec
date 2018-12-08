@@ -3,7 +3,7 @@
 
 Name:           tvheadend
 Version:        4.2.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 License:        GPLv3+
@@ -52,7 +52,9 @@ BuildRequires:  python3-rcssmin
 BuildRequires:  python3-rjsmin
 BuildRequires:  systemd
 Requires:       bzip2
+%if 0%{?fedora}
 Requires:       dtv-scan-tables
+%endif
 Requires:       tar
 %{?systemd_requires}
 Provides:       bundled(extjs) = 3.4.1.1
@@ -195,6 +197,9 @@ exit 0
 
 
 %changelog
+* Sat Dec 08 2018 Nicolas Chauvet <kwizart@gmail.com> - 4.2.7-3
+- Avoid dtv-scan-tables on non-fedora for now
+
 * Sat Nov 17 2018 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.7-2
 - Use system versions of rcssmin and rjsmin during build
 - Install Python bindings
