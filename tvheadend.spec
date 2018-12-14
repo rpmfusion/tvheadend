@@ -20,7 +20,7 @@
 
 Name:           tvheadend
 Version:        4.2.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 License:        GPLv3+
@@ -228,6 +228,9 @@ exit 0
 
 
 %changelog
+* Fri Dec 14 2018 Nicolas Chauvet <kwizart@gmail.com> - 4.2.7-4
+- Rework for python2/3
+
 * Sat Dec 08 2018 Nicolas Chauvet <kwizart@gmail.com> - 4.2.7-3
 - Avoid dtv-scan-tables on non-fedora for now
 
