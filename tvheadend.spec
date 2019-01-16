@@ -2,8 +2,8 @@
 %global tvheadend_group video
 
 Name:           tvheadend
-Version:        4.2.7
-Release:        2%{?dist}
+Version:        4.2.8
+Release:        1%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 License:        GPLv3+
@@ -195,6 +195,15 @@ exit 0
 
 
 %changelog
+* Wed Jan 16 2019 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.8-1
+- Update to 4.2.8
+
+* Fri Dec 14 2018 Nicolas Chauvet <kwizart@gmail.com> - 4.2.7-4
+- Rework for python2/3
+
+* Sat Dec 08 2018 Nicolas Chauvet <kwizart@gmail.com> - 4.2.7-3
+- Avoid dtv-scan-tables on non-fedora for now
+
 * Sat Nov 17 2018 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.7-2
 - Use system versions of rcssmin and rjsmin during build
 - Install Python bindings
