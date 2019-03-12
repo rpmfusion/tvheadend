@@ -20,7 +20,7 @@
 
 Name:           tvheadend
 Version:        4.2.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 License:        GPLv3+
@@ -41,6 +41,8 @@ Patch3:         %{name}-4.2.2-dtv_scan_tables.patch
 Patch4:         %{name}-4.2.1-crypto_policies.patch
 # Python 3 fixes for Python bindings
 Patch5:         %{name}-4.2.7-python3.patch
+# Fix build with GCC 9
+Patch6:         %{name}-4.2.8-gcc9.patch
 
 BuildRequires:  bzip2
 BuildRequires:  gcc
@@ -133,6 +135,8 @@ done
 
 
 %build
+# https://github.com/FFmpeg/FFmpeg/commit/4361293
+export CFLAGS="$RPM_OPT_FLAGS -Wno-attributes"
 echo "%{version}-%{release}" >rpm/version
 # Note: --disable-lib* correspond to options to build bundled FFmpeg
 %configure \
@@ -228,6 +232,9 @@ exit 0
 
 
 %changelog
+* Tue Mar 12 2019 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.8-3
+- Fix build with GCC 9
+
 * Mon Mar 04 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 4.2.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
