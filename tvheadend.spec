@@ -20,7 +20,7 @@
 
 Name:           tvheadend
 Version:        4.2.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 License:        GPLv3+
@@ -232,6 +232,9 @@ exit 0
 
 
 %changelog
+* Sat Aug 24 2019 Leigh Scott <leigh123linux@gmail.com> - 4.2.8-5
+- Rebuild for python-3.8
+
 * Wed Aug 07 2019 Leigh Scott <leigh123linux@gmail.com> - 4.2.8-4
 - Rebuild for new ffmpeg version
 
