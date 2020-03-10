@@ -138,7 +138,8 @@ done
 
 %build
 # https://github.com/FFmpeg/FFmpeg/commit/4361293
-export CFLAGS="$RPM_OPT_FLAGS -Wno-attributes"
+# Force -fcommon until code fully supports GCC 10
+export CFLAGS="$RPM_OPT_FLAGS -Wno-attributes -fcommon"
 echo "%{version}-%{release}" >rpm/version
 # Note: --disable-lib* correspond to options to build bundled FFmpeg
 %configure \
@@ -236,6 +237,7 @@ exit 0
 %changelog
 * Tue Mar 10 2020 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.8-7
 - Fix build with hdhomerun >= 20190621
+- Disable -fno-common flag to allow building with GCC 10
 
 * Wed Feb 05 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 4.2.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
