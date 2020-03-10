@@ -1,0 +1,12 @@
+diff -up ./src/input/mpegts/tvhdhomerun/tvhdhomerun.c.orig ./src/input/mpegts/tvhdhomerun/tvhdhomerun.c
+--- ./src/input/mpegts/tvhdhomerun/tvhdhomerun.c.orig	2019-01-12 09:58:47.000000000 +0100
++++ ./src/input/mpegts/tvhdhomerun/tvhdhomerun.c	2020-03-10 10:10:22.429845330 +0100
+@@ -28,7 +28,7 @@
+ #include <arpa/inet.h>
+ #include <openssl/sha.h>
+ 
+-#ifdef HDHOMERUN_TAG_DEVICE_AUTH_BIN
++#if defined(HDHOMERUN_TAG_DEVICE_AUTH_BIN) || defined(HDHOMERUN_TAG_DEVICE_AUTH_BIN_DEPRECATED)
+ #define hdhomerun_discover_find_devices_custom \
+            hdhomerun_discover_find_devices_custom_v2
+ #endif

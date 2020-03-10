@@ -20,7 +20,7 @@
 
 Name:           tvheadend
 Version:        4.2.8
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 License:        GPLv3+
@@ -43,6 +43,8 @@ Patch4:         %{name}-4.2.1-crypto_policies.patch
 Patch5:         %{name}-4.2.7-python3.patch
 # Fix build with GCC 9
 Patch6:         %{name}-4.2.8-gcc9.patch
+# Fix build with hdhomerun >= 20190621
+Patch7:         %{name}-4.2.8-hdhomerun20190621.patch
 
 BuildRequires:  bzip2
 BuildRequires:  gcc
@@ -232,6 +234,9 @@ exit 0
 
 
 %changelog
+* Tue Mar 10 2020 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.8-8
+- Fix build with hdhomerun >= 20190621
+
 * Sat Feb 22 2020 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 4.2.8-7
 - Rebuild for ffmpeg-4.3 git
 
