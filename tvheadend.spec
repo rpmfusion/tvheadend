@@ -45,6 +45,8 @@ Patch5:         %{name}-4.2.7-python3.patch
 Patch6:         %{name}-4.2.8-gcc9.patch
 # Fix build with hdhomerun >= 20190621
 Patch7:         %{name}-4.2.8-hdhomerun20190621.patch
+# Fix build with GCC 10
+Patch8:         %{name}-4.2.8-gcc10.patch
 
 BuildRequires:  bzip2
 BuildRequires:  gcc
@@ -137,9 +139,10 @@ done
 
 
 %build
-# https://github.com/FFmpeg/FFmpeg/commit/4361293
-# Force -fcommon until code fully supports GCC 10
-export CFLAGS="$RPM_OPT_FLAGS -Wno-attributes -fcommon"
+# * Use -Wno-attributes to fix https://github.com/FFmpeg/FFmpeg/commit/4361293
+# * Force -fcommon and -Wno-error=stringop-truncation until code fully supports
+#   GCC 10
+export CFLAGS="$RPM_OPT_FLAGS -Wno-attributes -fcommon -Wno-error=stringop-truncation"
 echo "%{version}-%{release}" >rpm/version
 # Note: --disable-lib* correspond to options to build bundled FFmpeg
 %configure \
@@ -235,9 +238,9 @@ exit 0
 
 
 %changelog
-* Tue Mar 10 2020 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.8-8
+* Wed Mar 11 2020 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.8-8
 - Fix build with hdhomerun >= 20190621
-- Disable -fno-common flag to allow building with GCC 10
+- Fix build with GCC 10
 
 * Sat Feb 22 2020 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 4.2.8-7
 - Rebuild for ffmpeg-4.3 git
