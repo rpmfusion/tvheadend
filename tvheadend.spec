@@ -20,7 +20,7 @@
 
 Name:           tvheadend
 Version:        4.2.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 License:        GPLv3+
@@ -238,6 +238,9 @@ exit 0
 
 
 %changelog
+* Sat May 30 2020 Leigh Scott <leigh123linux@gmail.com> - 4.2.8-9
+- Rebuild for python-3.9
+
 * Wed Mar 11 2020 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.2.8-8
 - Fix build with hdhomerun >= 20190621
 - Fix build with GCC 10
