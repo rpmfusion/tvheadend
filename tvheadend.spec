@@ -141,7 +141,7 @@ done
 
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS -Wno-attributes"
+export CFLAGS="$RPM_OPT_FLAGS -Wno-attributes -Wno-error=stringop-truncation"
 echo "%{version}-%{release}" >rpm/version
 # Note: --disable-lib* correspond to options to build bundled FFmpeg
 %configure \
