@@ -20,7 +20,7 @@
 
 Name:           tvheadend
 Version:        4.2.8
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 License:        GPLv3+
@@ -47,6 +47,8 @@ Patch6:         %{name}-4.2.8-gcc9.patch
 Patch7:         %{name}-4.2.8-hdhomerun20190621.patch
 # Fix build with GCC 10
 Patch8:         %{name}-4.2.8-gcc10.patch
+# Fix build with GCC 10 II
+Patch9:         https://github.com/tvheadend/tvheadend/pull/1342.patch
 
 BuildRequires:  bzip2
 BuildRequires:  gcc
@@ -139,10 +141,7 @@ done
 
 
 %build
-# * Use -Wno-attributes to fix https://github.com/FFmpeg/FFmpeg/commit/4361293
-# * Force -fcommon and -Wno-error=stringop-truncation until code fully supports
-#   GCC 10
-export CFLAGS="$RPM_OPT_FLAGS -Wno-attributes -fcommon -Wno-error=stringop-truncation"
+export CFLAGS="$RPM_OPT_FLAGS -Wno-attributes"
 echo "%{version}-%{release}" >rpm/version
 # Note: --disable-lib* correspond to options to build bundled FFmpeg
 %configure \
@@ -238,6 +237,9 @@ exit 0
 
 
 %changelog
+* Wed Jun 03 2020 Sérgio Basto <sergio@serjux.com> - 4.2.8-10
+- Fix building with -fno-common (default from GCC 10)
+
 * Sat May 30 2020 Leigh Scott <leigh123linux@gmail.com> - 4.2.8-9
 - Rebuild for python-3.9
 
