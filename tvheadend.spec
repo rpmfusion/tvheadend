@@ -20,7 +20,7 @@
 
 Name:           tvheadend
 Version:        4.2.8
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 License:        GPLv3+
@@ -237,6 +237,9 @@ exit 0
 
 
 %changelog
+* Tue Aug 18 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 4.2.8-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
 * Wed Jun 03 2020 Sérgio Basto <sergio@serjux.com> - 4.2.8-10
 - Fix building with -fno-common (default from GCC 10)
 
