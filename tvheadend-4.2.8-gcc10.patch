@@ -1,6 +1,6 @@
 diff -up ./src/epggrab/module/xmltv.c.orig ./src/epggrab/module/xmltv.c
---- ./src/epggrab/module/xmltv.c.orig	2019-01-12 09:58:47.000000000 +0100
-+++ ./src/epggrab/module/xmltv.c	2020-03-11 10:32:50.940753193 +0100
+--- ./src/epggrab/module/xmltv.c.orig	2019-01-12 08:58:47.000000000 +0000
++++ ./src/epggrab/module/xmltv.c	2020-08-20 15:12:27.533589454 +0000
 @@ -190,11 +190,12 @@ static void parse_xmltv_dd_progid
    (epggrab_module_t *mod, const char *s, char **uri, char **suri,
     epg_episode_num_t *epnum)
@@ -24,3 +24,41 @@ diff -up ./src/epggrab/module/xmltv.c.orig ./src/epggrab/module/xmltv.c
  }
  
  /**
+diff -up ./src/input.h.orig ./src/input.h
+--- ./src/input.h.orig	2019-01-12 08:58:47.000000000 +0000
++++ ./src/input.h	2020-08-20 15:13:19.246306382 +0000
+@@ -128,8 +128,8 @@ void tvh_hardware_delete ( tvh_hardware_
+ extern const idclass_t tvh_input_class;
+ extern const idclass_t tvh_input_instance_class;
+ 
+-tvh_input_list_t    tvh_inputs;
+-tvh_hardware_list_t tvh_hardware;
++extern tvh_input_list_t    tvh_inputs;
++extern tvh_hardware_list_t tvh_hardware;
+ 
+ #define TVH_INPUT_FOREACH(x) LIST_FOREACH(x, &tvh_inputs, ti_link)
+ #define TVH_HARDWARE_FOREACH(x) LIST_FOREACH(x, &tvh_hardware, th_link)
+diff -up ./src/input/mpegts.c.orig ./src/input/mpegts.c
+--- ./src/input/mpegts.c.orig	2019-01-12 08:58:47.000000000 +0000
++++ ./src/input/mpegts.c	2020-08-20 15:13:19.246306382 +0000
+@@ -20,6 +20,8 @@
+ #include "mpegts/fastscan.h"
+ #include "memoryinfo.h"
+ 
++struct mpegts_listeners mpegts_listeners;
++
+ extern memoryinfo_t mpegts_input_queue_memoryinfo;
+ extern memoryinfo_t mpegts_input_table_memoryinfo;
+ 
+diff -up ./src/input/mpegts.h.orig ./src/input/mpegts.h
+--- ./src/input/mpegts.h.orig	2019-01-12 08:58:47.000000000 +0000
++++ ./src/input/mpegts.h	2020-08-20 15:13:19.247306357 +0000
+@@ -1132,7 +1132,7 @@ typedef struct mpegts_listener
+   void (*ml_mux_delete) (mpegts_mux_t *mm, void *p);
+ } mpegts_listener_t;
+ 
+-LIST_HEAD(,mpegts_listener) mpegts_listeners;
++extern LIST_HEAD(mpegts_listeners, mpegts_listener) mpegts_listeners;
+ 
+ #define mpegts_add_listener(ml)\
+   LIST_INSERT_HEAD(&mpegts_listeners, ml, ml_link)
