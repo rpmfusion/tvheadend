@@ -20,7 +20,7 @@
 
 Name:           tvheadend
 Version:        4.2.8
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 License:        GPLv3+
@@ -241,6 +241,9 @@ exit 0
 
 
 %changelog
+* Thu Feb 04 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 4.2.8-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
 * Fri Jan  1 2021 Leigh Scott <leigh123linux@gmail.com> - 4.2.8-13
 - Rebuilt for new ffmpeg snapshot
 
