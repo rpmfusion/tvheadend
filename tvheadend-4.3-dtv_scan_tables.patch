@@ -1,7 +1,7 @@
 diff -up ./src/input/mpegts/scanfile.c.orig ./src/input/mpegts/scanfile.c
---- ./src/input/mpegts/scanfile.c.orig	2017-05-16 13:15:24.000000000 +0200
-+++ ./src/input/mpegts/scanfile.c	2017-06-01 22:30:29.150834135 +0200
-@@ -903,7 +903,7 @@ scanfile_init ( const char *muxconf_path
+--- ./src/input/mpegts/scanfile.c.orig	2021-06-12 15:56:23.000000000 +0200
++++ ./src/input/mpegts/scanfile.c	2021-07-09 16:25:21.695025654 +0200
+@@ -921,7 +921,7 @@ scanfile_init ( const char *muxconf_path
  #elif defined(PLATFORM_FREEBSD)
      path = "/usr/local/share/dtv-scan-tables";
  #else

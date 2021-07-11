@@ -1,9 +1,9 @@
 diff -up ./rpm/tvheadend.sysconfig.orig ./rpm/tvheadend.sysconfig
---- ./rpm/tvheadend.sysconfig.orig	2018-10-08 14:37:05.000000000 +0200
-+++ ./rpm/tvheadend.sysconfig	2018-10-09 12:21:53.932489202 +0200
+--- ./rpm/tvheadend.sysconfig.orig	2021-06-12 15:56:23.000000000 +0200
++++ ./rpm/tvheadend.sysconfig	2021-07-09 15:59:43.911304216 +0200
 @@ -1,4 +1,4 @@
  # Configuration file for the tvheadend service.
  
  MALLOC_ARENA_MAX=4
 -OPTIONS="-c /var/lib/tvheadend/config -u tvheadend -g tvheadend -6 --http_port 9981 --htsp_port 9982"
-+OPTIONS="-c /var/lib/tvheadend/config -u tvheadend -g video -6 -C --http_port 9981 --htsp_port 9982"
++OPTIONS="-c /var/lib/tvheadend/config -u tvheadend -g video -6 --http_port 9981 --htsp_port 9982 -C"

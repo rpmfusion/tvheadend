@@ -1,0 +1,36 @@
+diff -up ./configure.orig ./configure
+--- ./configure.orig	2021-06-12 15:56:23.000000000 +0200
++++ ./configure	2021-07-09 15:38:00.582174018 +0200
+@@ -419,7 +419,7 @@ if enabled hdhomerun_static; then
+ else
+ 
+   if enabled_or_auto hdhomerun_client; then
+-    if check_cc_header 'libhdhomerun/hdhomerun' libhdhomerun; then
++    if check_cc_header 'hdhomerun/hdhomerun' libhdhomerun; then
+       enable  hdhomerun_client
+       LDFLAGS="$LDFLAGS -lhdhomerun"
+     fi
+diff -up ./src/input/mpegts/tvhdhomerun/tvhdhomerun.c.orig ./src/input/mpegts/tvhdhomerun/tvhdhomerun.c
+--- ./src/input/mpegts/tvhdhomerun/tvhdhomerun.c.orig	2021-06-12 15:56:23.000000000 +0200
++++ ./src/input/mpegts/tvhdhomerun/tvhdhomerun.c	2021-07-09 15:36:03.911371146 +0200
+@@ -17,7 +17,7 @@
+  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
+-#include "libhdhomerun/hdhomerun.h"
++#include <hdhomerun/hdhomerun.h>
+ 
+ #include "tvheadend.h"
+ #include "input.h"
+diff -up ./src/input/mpegts/tvhdhomerun/tvhdhomerun_frontend.c.orig ./src/input/mpegts/tvhdhomerun/tvhdhomerun_frontend.c
+--- ./src/input/mpegts/tvhdhomerun/tvhdhomerun_frontend.c.orig	2021-06-12 15:56:23.000000000 +0200
++++ ./src/input/mpegts/tvhdhomerun/tvhdhomerun_frontend.c	2021-07-09 15:39:29.431546982 +0200
+@@ -17,7 +17,7 @@
+  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
+-#include "libhdhomerun/hdhomerun.h"
++#include <hdhomerun/hdhomerun.h>
+ 
+ #include <fcntl.h>
+ #include "tvheadend.h"

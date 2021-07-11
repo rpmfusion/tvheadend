@@ -1,7 +1,7 @@
 diff -up ./src/httpc.c.orig ./src/httpc.c
---- ./src/httpc.c.orig	2017-04-21 10:32:22.000000000 +0200
-+++ ./src/httpc.c	2017-04-23 13:29:02.612596380 +0200
-@@ -1509,7 +1509,7 @@ http_client_reconnect
+--- ./src/httpc.c.orig	2021-06-12 15:56:23.000000000 +0200
++++ ./src/httpc.c	2021-07-09 16:37:32.466273140 +0200
+@@ -1528,7 +1528,7 @@ http_client_reconnect
      /* do not use SSLv2 */
      SSL_CTX_set_options(ssl->ctx, SSL_OP_NO_SSLv2 | SSL_OP_NO_COMPRESSION);
      /* adjust cipher list */

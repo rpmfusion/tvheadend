@@ -1,6 +1,6 @@
 diff -up ./lib/py/tvh/tsreader.py.orig ./lib/py/tvh/tsreader.py
---- ./lib/py/tvh/tsreader.py.orig	2018-10-08 14:37:05.000000000 +0200
-+++ ./lib/py/tvh/tsreader.py	2018-10-15 11:53:53.766850060 +0200
+--- ./lib/py/tvh/tsreader.py.orig	2021-06-12 15:56:23.000000000 +0200
++++ ./lib/py/tvh/tsreader.py	2021-07-09 15:57:46.003481983 +0200
 @@ -31,7 +31,7 @@ def encode_utf8(c):
  
  def conv_8859(tnum, data):
@@ -71,7 +71,7 @@ diff -up ./lib/py/tvh/tsreader.py.orig ./lib/py/tvh/tsreader.py
  
              dllen = dllen - dlen
              data = data[dlen:]
-@@ -216,7 +216,7 @@ if __name__ == '__main__':
+@@ -216,15 +216,15 @@ if __name__ == '__main__':
          # Complete?
          if cur:
              if len(cur.data) >= cur.len:
@@ -80,8 +80,9 @@ diff -up ./lib/py/tvh/tsreader.py.orig ./lib/py/tvh/tsreader.py
                  # try:
                  cur.process()
                  # except: pass
-@@ -224,7 +224,7 @@ if __name__ == '__main__':
-                 print
+                 cur = None
+-                print
++                print()
                  sys.exit(0)
              else:
 -                print 'waiting for %d bytes' % (cur.len - len(cur.data))
