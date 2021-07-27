@@ -1,13 +1,13 @@
-%global commit eb59284b8527e3c51eadfeca94ec1e9174cdbdb0
+%global commit 6efa411648cee0b9ca0ce5ab39ee847035c88566
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20210612
+%global commitdate 20210724
 
 # https://tvheadend.org/issues/6026
 %global _lto_cflags %nil
 
 Name:           tvheadend
 Version:        4.3
-Release:        1.%{commitdate}git%{shortcommit}%{?dist}
+Release:        2.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 # - Source code is GPLv3+
@@ -32,6 +32,9 @@ Patch4:         %{name}-4.3-dtv_scan_tables.patch
 # Enforcing system crypto policies, see
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
 Patch5:         %{name}-4.3-crypto_policies.patch
+# Disable libavresample (see
+# https://bugzilla.rpmfusion.org/show_bug.cgi?id=5352)
+Patch6:         %{name}-4.3-libavresample.patch
 
 BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:  bzip2
@@ -46,7 +49,6 @@ BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(libavfilter)
 BuildRequires:  pkgconfig(libavformat)
-BuildRequires:  pkgconfig(libavresample)
 BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libpcre2-8)
 BuildRequires:  pkgconfig(libswresample)
@@ -193,6 +195,10 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Tue Jul 27 2021 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.3-3.20210724git6efa411
+- Update to latest snapshot
+- Drop any dependency to libavresample (fix RHBZ #5352)
+
 * Sat Jul 10 2021 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.3-1.20210612giteb59284
 - Update to latest snapshot
 
