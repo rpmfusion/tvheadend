@@ -7,7 +7,7 @@
 
 Name:           tvheadend
 Version:        4.3
-Release:        2.%{commitdate}git%{shortcommit}%{?dist}
+Release:        3.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 # - Source code is GPLv3+
@@ -195,6 +195,9 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Tue Aug 03 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 4.3-3.20210724git6efa411
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
 * Tue Jul 27 2021 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.3-3.20210724git6efa411
 - Update to latest snapshot
 - Drop any dependency to libavresample (fix RHBZ #5352)
