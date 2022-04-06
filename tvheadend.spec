@@ -1,13 +1,13 @@
-%global commit 6efa411648cee0b9ca0ce5ab39ee847035c88566
+%global commit 2bf1629280bcd7d33e93df165985f3f6253c4b70
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20210724
+%global commitdate 20220330
 
 # https://tvheadend.org/issues/6026
 %global _lto_cflags %nil
 
 Name:           tvheadend
 Version:        4.3
-Release:        5.%{commitdate}git%{shortcommit}%{?dist}
+Release:        6.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 # - Source code is GPLv3+
@@ -36,8 +36,8 @@ Patch5:         %{name}-4.3-crypto_policies.patch
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=5352)
 Patch6:         %{name}-4.3-libavresample.patch
 
-BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:  bzip2
+BuildRequires:  compat-ffmpeg4
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gzip
@@ -46,13 +46,7 @@ BuildRequires:  libdvbcsa-devel
 BuildRequires:  make
 BuildRequires:  pkgconfig(avahi-client)
 BuildRequires:  pkgconfig(dbus-1)
-BuildRequires:  pkgconfig(libavcodec)
-BuildRequires:  pkgconfig(libavfilter)
-BuildRequires:  pkgconfig(libavformat)
-BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libpcre2-8)
-BuildRequires:  pkgconfig(libswresample)
-BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(liburiparser)
 BuildRequires:  pkgconfig(libva)
@@ -114,6 +108,7 @@ done
 
 
 %build
+export CFLAGS="$RPM_OPT_FLAGS -Wno-error=array-bounds -Wno-error=use-after-free -Wno-error=address"
 echo "%{version}-%{release}" >rpm/version
 %configure \
     --disable-dvbscan \
@@ -128,12 +123,12 @@ echo "%{version}-%{release}" >rpm/version
     --disable-libx265_static \
     --enable-hdhomerun_client \
     --enable-libsystemd_daemon \
-    --python=%{__python3}
+    --python=%{python3}
 
 %make_build \
     V=1 \
-    RUN_CSS="%{__python3} %{python3_sitearch}/rcssmin.py" \
-    RUN_JS="%{__python3} %{python3_sitearch}/rjsmin.py"
+    RUN_CSS="%{python3} %{python3_sitearch}/rcssmin.py" \
+    RUN_JS="%{python3} %{python3_sitearch}/rjsmin.py"
 
 
 %install
@@ -141,7 +136,7 @@ echo "%{version}-%{release}" >rpm/version
 
 install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
 
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" $RPM_BUILD_ROOT%{_bindir}/{*.py,tvhmeta}
+%py3_shebang_fix $RPM_BUILD_ROOT%{_bindir}/{*.py,tvhmeta}
 chmod 0755 $RPM_BUILD_ROOT%{_bindir}/{*.py,tvhmeta}
 
 install -Dpm 0644 rpm/%{name}.service $RPM_BUILD_ROOT%{_unitdir}/%{name}.service
@@ -195,6 +190,11 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Mon Apr 04 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.3-6.20220330git2bf1629
+- Update to latest snapshot
+- Add workaround to build with GCC 12
+- Force build with FFmpeg 4.0
+
 * Wed Feb 09 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 4.3-5.20210724git6efa411
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
