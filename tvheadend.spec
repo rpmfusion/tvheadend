@@ -7,7 +7,7 @@
 
 Name:           tvheadend
 Version:        4.3
-Release:        6.%{commitdate}git%{shortcommit}%{?dist}
+Release:        7.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 # - Source code is GPLv3+
@@ -190,6 +190,9 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Sat Jun 25 2022 Robert-André Mauchin <zebob.m@gmail.com> - 4.3-7.20220330git2bf1629
+- Rebuilt for Python 3.11
+
 * Mon Apr 04 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.3-6.20220330git2bf1629
 - Update to latest snapshot
 - Add workaround to build with GCC 12
