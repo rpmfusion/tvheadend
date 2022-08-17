@@ -7,7 +7,7 @@
 
 Name:           tvheadend
 Version:        4.3
-Release:        6.%{commitdate}git%{shortcommit}%{?dist}
+Release:        7.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 # - Source code is GPLv3+
@@ -110,6 +110,8 @@ done
 %build
 export CFLAGS="$RPM_OPT_FLAGS -Wno-error=array-bounds -Wno-error=use-after-free -Wno-error=address"
 echo "%{version}-%{release}" >rpm/version
+# Set pkgconfig path for compat-ffmpeg4...
+export PKG_CONFIG_PATH="%{_libdir}/compat-ffmpeg4/pkgconfig/"
 %configure \
     --disable-dvbscan \
     --disable-ffmpeg_static \
@@ -190,6 +192,9 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Wed Aug 17 2022 Leigh Scott <leigh123linux@gmail.com> - 4.3-7.20220330git2bf1629
+- Set pkgconfig path for compat-ffmpeg4
+
 * Mon Apr 04 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.3-6.20220330git2bf1629
 - Update to latest snapshot
 - Add workaround to build with GCC 12
