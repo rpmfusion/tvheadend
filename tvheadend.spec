@@ -37,7 +37,7 @@ Patch5:         %{name}-4.3-crypto_policies.patch
 Patch6:         %{name}-4.3-libavresample.patch
 
 BuildRequires:  bzip2
-BuildRequires:  compat-ffmpeg4
+BuildRequires:  compat-ffmpeg4-devel
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gzip
