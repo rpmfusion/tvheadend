@@ -110,8 +110,6 @@ done
 %build
 export CFLAGS="$RPM_OPT_FLAGS -Wno-error=array-bounds -Wno-error=use-after-free -Wno-error=address"
 echo "%{version}-%{release}" >rpm/version
-# Set pkgconfig path for compat-ffmpeg4...
-export PKG_CONFIG_PATH="%{_libdir}/compat-ffmpeg4/pkgconfig/"
 %configure \
     --disable-dvbscan \
     --disable-ffmpeg_static \
