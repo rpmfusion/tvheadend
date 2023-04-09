@@ -1,0 +1,29 @@
+diff -up ./Makefile.ffmpeg.orig ./Makefile.ffmpeg
+--- ./Makefile.ffmpeg.orig	2023-04-08 21:56:27.000000000 +0200
++++ ./Makefile.ffmpeg	2023-04-09 09:50:57.204835203 +0200
+@@ -108,10 +108,10 @@ FFNVCODEC_TB   = $(FFNVCODEC).tar.gz
+ FFNVCODEC_URL  = https://github.com/FFmpeg/nv-codec-headers/releases/download/n$(FFNVCODEC_VER)/nv-codec-headers-$(FFNVCODEC_VER).tar.gz
+ FFNVCODEC_SHA1 = 89bee0d3025b813c513084ad8546b0261623fbb0
+ 
+-FFMPEG         = ffmpeg-5.1.2
++FFMPEG         = ffmpeg-6.0
+ FFMPEG_TB      = $(FFMPEG).tar.bz2
+ FFMPEG_URL     = https://ffmpeg.org/releases/$(FFMPEG_TB)
+-FFMPEG_SHA1    = f5215c15ca50a43856f641c714c6070aa148dd66
++FFMPEG_SHA1    = 7ce79a1806f3f19b6b044f83d0cec39309dab0ee
+ 
+ 
+ # ##############################################################################
+diff -up ./src/transcoding/transcode/hwaccels/vaapi.c.orig ./src/transcoding/transcode/hwaccels/vaapi.c
+--- ./src/transcoding/transcode/hwaccels/vaapi.c.orig	2023-04-08 21:56:27.000000000 +0200
++++ ./src/transcoding/transcode/hwaccels/vaapi.c	2023-04-09 09:50:57.205835218 +0200
+@@ -594,7 +594,9 @@ vaapi_decode_setup_context(AVCodecContex
+     }
+ 
+     avctx->get_buffer2 = vaapi_get_buffer2;
++#if LIBAVCODEC_VERSION_MAJOR < 60
+     avctx->thread_safe_callbacks = 0;
++#endif
+ 
+     return 0;
+ }

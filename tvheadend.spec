@@ -1,21 +1,21 @@
-%global commit 2bf1629280bcd7d33e93df165985f3f6253c4b70
+%global commit f32c7c59a19a276648d7b068041738e4e8337638
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20220330
+%global commitdate 20230408
 
 # https://tvheadend.org/issues/6026
 %global _lto_cflags %nil
 
 Name:           tvheadend
-Version:        4.3
-Release:        9.%{commitdate}git%{shortcommit}%{?dist}
+Version:        4.3^%{commitdate}git%{shortcommit}
+Release:        1%{?dist}
 Summary:        TV streaming server and digital video recorder
 
-# - Source code is GPLv3+
-# - Silk icons in vendor/famfamsilk/ are CC-BY
+# - Source code is GPL-3.0-or-later
+# - Silk icons in vendor/famfamsilk/ are CC-BY-2.5
 # - Noto icons in vendor/noto/ are ASL
-License:        GPLv3+ and CC-BY and ASL 2.0
+License:        GPL-3.0-or-later and CC-BY-2.5 and Apache-2.0
 URL:            https://tvheadend.org/
-Source0:        https://github.com/tvheadend/%{name}/archive/%{shortcommit}/%{name}-%{shortcommit}.tar.gz
+Source0:        https://github.com/%{name}/%{name}/archive/%{shortcommit}/%{name}-%{shortcommit}.tar.gz
 Source1:        %{name}.sysusers
 # Use system queue.h header
 Patch0:         %{name}-4.3-use_system_queue.patch
@@ -32,12 +32,10 @@ Patch4:         %{name}-4.3-dtv_scan_tables.patch
 # Enforcing system crypto policies, see
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
 Patch5:         %{name}-4.3-crypto_policies.patch
-# Disable libavresample (see
-# https://bugzilla.rpmfusion.org/show_bug.cgi?id=5352)
-Patch6:         %{name}-4.3-libavresample.patch
+# Add support for FFmpeg 6 (see https://github.com/tvheadend/tvheadend/pull/1522)
+Patch6:         %{name}-4.3-ffmpeg6.patch
 
 BuildRequires:  bzip2
-BuildRequires:  compat-ffmpeg4-devel
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gzip
@@ -46,7 +44,13 @@ BuildRequires:  libdvbcsa-devel
 BuildRequires:  make
 BuildRequires:  pkgconfig(avahi-client)
 BuildRequires:  pkgconfig(dbus-1)
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavfilter)
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libpcre2-8)
+BuildRequires:  pkgconfig(libswresample)
+BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(liburiparser)
 BuildRequires:  pkgconfig(libva)
@@ -108,10 +112,10 @@ done
 
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS -Wno-error=array-bounds -Wno-error=use-after-free -Wno-error=address"
 echo "%{version}-%{release}" >rpm/version
 %configure \
     --disable-dvbscan \
+    --disable-libfdkaac_static \
     --disable-ffmpeg_static \
     --disable-hdhomerun_static \
     --disable-libfdkaac_static \
@@ -121,6 +125,7 @@ echo "%{version}-%{release}" >rpm/version
     --disable-libvpx_static \
     --disable-libx264_static \
     --disable-libx265_static \
+    --enable-libfdkaac \
     --enable-hdhomerun_client \
     --enable-libsystemd_daemon \
     --python=%{python3}
@@ -151,6 +156,10 @@ rm $RPM_BUILD_ROOT%{python3_sitelib}/tvh/tv_meta_*.py
 
 # Fix permissions
 chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
+
+
+%check
+%py3_check_import tvh
 
 
 %pre
@@ -190,6 +199,11 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Tue Apr 04 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.3^20230408gitf32c7c5-1
+- Update to latest snapshot
+- Fix build with FFmpeg 6
+- Switch to SPDX license identifiers
+
 * Wed Aug 17 2022 Leigh Scott <leigh123linux@gmail.com> - 4.3-9.20220330git2bf1629
 - Set pkgconfig path for compat-ffmpeg4
 
