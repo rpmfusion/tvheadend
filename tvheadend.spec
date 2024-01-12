@@ -1,13 +1,13 @@
-%global commit f32c7c59a19a276648d7b068041738e4e8337638
+%global commit c9b38a81aa3d3a379d8b41cc0ffab1307304da48
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20230408
+%global commitdate 20240111
 
 # https://tvheadend.org/issues/6026
 %global _lto_cflags %nil
 
 Name:           tvheadend
 Version:        4.3^%{commitdate}git%{shortcommit}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 # - Source code is GPL-3.0-or-later
@@ -32,8 +32,6 @@ Patch4:         %{name}-4.3-dtv_scan_tables.patch
 # Enforcing system crypto policies, see
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
 Patch5:         %{name}-4.3-crypto_policies.patch
-# Add support for FFmpeg 6 (see https://github.com/tvheadend/tvheadend/pull/1522)
-Patch6:         %{name}-4.3-ffmpeg6.patch
 
 BuildRequires:  bzip2
 BuildRequires:  gcc
@@ -199,6 +197,10 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Fri Jan 12 2024 Sérgio Basto <sergio@serjux.com> - 4.3^20240111gitc9b38a8-4
+- Update to latest snapshot
+- Fix rfbz #6840 Crash on Fedora 38 and Fedora 39
+
 * Wed Aug 02 2023 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 4.3^20230408gitf32c7c5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
