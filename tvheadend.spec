@@ -7,7 +7,7 @@
 
 Name:           tvheadend
 Version:        4.3^%{commitdate}git%{shortcommit}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 # - Source code is GPL-3.0-or-later
@@ -197,6 +197,9 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Thu Jun 13 2024 Leigh Scott <leigh123linux@gmail.com> - 4.3^20240111gitc9b38a8-6
+- Rebuilt for Python 3.13
+
 * Sun Feb 04 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 4.3^20240111gitc9b38a8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
