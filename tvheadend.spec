@@ -1,13 +1,18 @@
-%global commit c9b38a81aa3d3a379d8b41cc0ffab1307304da48
+%global commit 49ac9387186d32b55a399a04155e835eac22c6c1
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20240111
+%global commitdate 20240810
 
 # https://tvheadend.org/issues/6026
 %global _lto_cflags %nil
 
+# https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
+%if 0%{?fedora} > 40
+%global _preprocessor_defines %{?_preprocessor_defines} -DOPENSSL_NO_ENGINE
+%endif
+
 Name:           tvheadend
 Version:        4.3^%{commitdate}git%{shortcommit}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 # - Source code is GPL-3.0-or-later
@@ -197,6 +202,10 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Sun Aug 11 2024 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.3^20240810git49ac938-8
+- Update to latest snapshot
+- Fix FTBFS because of Openssl engine depreciation
+
 * Fri Aug 02 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 4.3^20240111gitc9b38a8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 
