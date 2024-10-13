@@ -1,6 +1,6 @@
-%global commit 49ac9387186d32b55a399a04155e835eac22c6c1
+%global commit 26ec161fb3c903f8b0d0be8b54d1b67c596fb829
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20240810
+%global commitdate 20241008
 
 # https://tvheadend.org/issues/6026
 %global _lto_cflags %nil
@@ -12,7 +12,7 @@
 
 Name:           tvheadend
 Version:        4.3^%{commitdate}git%{shortcommit}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 # - Source code is GPL-3.0-or-later
@@ -202,9 +202,12 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Sun Oct 13 2024 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.3^20241008git26ec161-9
+- Update to latest snapshot
+
 * Sun Aug 11 2024 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.3^20240810git49ac938-8
 - Update to latest snapshot
-- Fix FTBFS because of Openssl engine depreciation
+- Fix FTBFS because of OpenSSL engine depreciation
 
 * Fri Aug 02 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 4.3^20240111gitc9b38a8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
