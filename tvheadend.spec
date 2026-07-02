@@ -1,6 +1,6 @@
-%global commit 9968e6f3008dc7b9f6ba44d61eb41e54e429a455
+%global commit 80729d2f6f4b9bd11ceaf8835699c82e6bfed630
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20260206
+%global commitdate 20260623
 
 %global _pkg_extra_cflags -std=gnu17 -Wno-unused-but-set-variable -Wno-format-truncation
 # https://tvheadend.org/issues/6026
@@ -13,7 +13,7 @@
 
 Name:           tvheadend
 Version:        4.3^%{commitdate}git%{shortcommit}
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        TV streaming server and digital video recorder
 
 # - Source code is GPL-3.0-or-later
@@ -184,7 +184,7 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 %files
 %doc CONTRIBUTING.md README.md
-%license LICENSE.md licenses/gpl-3.0.txt
+%license LICENSE.md
 %{_bindir}/%{name}
 %{_bindir}/tv_meta_tmdb.py
 %{_bindir}/tv_meta_tvdb.py
@@ -198,11 +198,14 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 
 %files -n python3-tvh
-%license LICENSE.md licenses/gpl-3.0.txt
+%license LICENSE.md
 %{python3_sitelib}/tvh/
 
 
 %changelog
+* Thu Jul 02 2026 Nicolas Chauvet <kwizart@gmail.com> - 4.3^20260623git80729d2-15
+- Update snapshot
+
 * Tue Feb 17 2026 Sérgio Basto <sergio@serjux.com> - 4.3^20260206git9968e6f-14
 - Update to a newer snapshot
 - tvheadend fails due to warnings being treated as errors (and the code is not C23-ready,) so
