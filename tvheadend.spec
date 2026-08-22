@@ -38,6 +38,7 @@ Patch4:         %{name}-4.3-dtv_scan_tables.patch
 # Enforcing system crypto policies, see
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
 Patch5:         %{name}-4.3-crypto_policies.patch
+Patch6:         https://github.com/tvheadend/tvheadend/pull/2224.patch#/ffmpeg9.patch
 
 BuildRequires:  bzip2
 BuildRequires:  gcc
